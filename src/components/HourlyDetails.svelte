@@ -152,49 +152,34 @@
     <div class="flex flex-col shrink mb-1.5 w-6 overflow-hidden rounded-md text-sm sm:text-base">
       {#each aggregation as entry}
         <div class="leading-9 {CLASS_TEXT_MAP[entry.conditions][0]}" style="height: {(100 * entry.duration) / 24}%;">
-          <!-- <div class="md:block text-sm">{CLASS_TEXT_MAP[entry.conditions][1]}</div> -->
         </div>
       {/each}
     </div>
-    <!-- <div class="flex flex-col w-full mb-1">
-      {#each Array(25) as _, i}
-        <div class="{i % 2 === 0 ? 'h-[8px]' : 'h-[5px]'} border-l border-gray-400" style="width: {i < 24 ? 100 / 24 : 0}%;" />
-      {/each}
-    </div> -->
     <div class="flex flex-col shrink text-xs sm:text-sm ml-3">
-      <div style="height: {100 / 12}%;">
-        <div class="hidden md:block">
-          <span class="font-bold w-9 mr-2 inline-block text-right">Now</span> <span class="font-normal italic">{hourly[0].conditions}</span>
-          <!-- <Timestamp value={hourly[0].timestamp} format="hour" /> -->
-        </div>
+      <div class="grow flex items-center">
+        <span class="font-bold w-9 mr-2 inline-block text-right">Now</span> <span class="font-normal italic mr-2">{hourly[0].conditions}</span>
+        <span class="min-w-fit inline-block border-solid border-t-[1px] border-slate-300 grow translate-y-2/4"></span>
       </div>
       {#each Array(11) as _, i}
         {@const timestamp = hourly[2 * (i + 1)].timestamp}
         {@const condition = hourly[2 * (i + 1)].conditions}
         {@const previousCondition = hourly[2 * i].conditions}
-        <div class="font-bold" style="height: {100 / 12}%;">
-          <div class="{i === 0 || i === 2 || i === 4 || i === 6 || i === 8 || i === 10 ? 'block' : 'hidden'} md:block">
-            <span class="w-9 mr-2 inline-block text-right"><Timestamp value={timestamp} format="hour" /></span> <span class="font-normal italic">{previousCondition !== condition ? condition : ''}</span>
-          </div>
+        {@const newCondition = previousCondition !== condition}
+        <div class="font-bold grow flex items-center">
+          <span class="w-9 mr-2 inline-block text-right"><Timestamp value={timestamp} format="hour" /></span> <span class="font-normal italic {newCondition ? 'block' : 'hidden'} {newCondition ? 'mr-2': ''}">{newCondition ? condition : ''}</span> <span class="min-w-fit inline-block border-solid border-t-[1px] border-slate-300 grow translate-y-2/4"></span>
         </div>
       {/each}
-      <div style="height: {100 / 24}%;" />
     </div>
-    <div class="flex flex-col grow mb-2 text-base sm:text-lg font-light text-black dark:text-white">
-      <!-- <div style="width: {100 / 24}%; opacity: {temperatureOpacity(hourly[0].temperature)};">
-        <div class="hidden md:block">
-          <Temperature value={hourly[0].temperature} />
-        </div>
-      </div> -->
+    <div class="flex flex-col grow text-base sm:text-lg font-light text-black dark:text-white" >
       {#each Array(12) as _, i}
         {@const temperature = hourly[2 * i].temperature}
-        <div class="text-center" style="height: {100 / 12}%;">
-          <div class="{i === 0 || i === 2 || i === 4 || i === 6 || i === 8 || i === 10 ? 'block' : 'hidden'} md:block">
-            &nbsp;<Temperature value={temperature} />
-          </div>
+        {@const width = (100 * (temperature - temperatureLow)) / (temperatureHigh - temperatureLow)}
+
+        <div class="grow flex items-center">
+          <span class="min-w-fit inline-block border-solid border-t-[1px] border-slate-300 translate-y-2/4" style="min-width: calc({width}% - 40px);"></span>
+          <span class="ml-2"><Temperature pill value={temperature} /></span>
         </div>
       {/each}
-      <div style="height: {100 / 24}%;" />
     </div>
   </div>
 {/if}
