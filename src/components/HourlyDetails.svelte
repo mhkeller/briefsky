@@ -9,6 +9,9 @@
   /* Properties */
 
   export let hourly: HourlyWeather[] = [];
+  export let today: boolean = false;
+
+  $: console.log(hourly.map(d => [d.timestamp.getHours(), d.conditions]).join('\n'));
 
   /* Constants */
 
@@ -148,35 +151,44 @@
     <div style="width: {100 / 24}%;" />
   </div>
 {:else if $configuration.layout === 'vertical'}
-  <div class="flex flex-row h-96">
-    <div class="flex flex-col shrink mb-1.5 w-6 overflow-hidden rounded-md text-sm sm:text-base">
+  <div class="flex flex-row" style="height: 600px;">
+    <div class="flex flex-col shrink mb-1.5 w-7 overflow-hidden rounded-md text-sm sm:text-base">
       {#each aggregation as entry}
         <div class="leading-9 {CLASS_TEXT_MAP[entry.conditions][0]}" style="height: {(100 * entry.duration) / 24}%;">
         </div>
       {/each}
     </div>
-    <div class="flex flex-col shrink text-xs sm:text-sm ml-3">
-      <div class="grow flex items-center">
-        <span class="font-bold w-9 mr-2 inline-block text-right">Now</span> <span class="font-normal italic mr-2">{hourly[0].conditions}</span>
-        <span class="min-w-fit inline-block border-solid border-t-[1px] border-slate-300 grow translate-y-2/4"></span>
+    <div class="text-sm ml-2">
+      <div style="height:{100 / 12}%;" class="grow flex items-top">
+        {#if today}
+          <span class="font-bold w-9 mr-2 inline-block text-right">Now</span>
+        {:else}
+          <span class="font-bold w-9 mr-2 inline-block text-right">
+            <Timestamp value={hourly[0].timestamp} format="hour" />
+          </span>
+        {/if}
+        <span class="font-normal italic mr-2">{hourly[0].conditions}</span>
+        <span class="min-w-fit inline-block border-solid border-b-[1px] border-slate-300 grow h-2/4"></span>
       </div>
       {#each Array(11) as _, i}
         {@const timestamp = hourly[2 * (i + 1)].timestamp}
         {@const condition = hourly[2 * (i + 1)].conditions}
         {@const previousCondition = hourly[2 * i].conditions}
         {@const newCondition = previousCondition !== condition}
-        <div class="font-bold grow flex items-center">
-          <span class="w-9 mr-2 inline-block text-right"><Timestamp value={timestamp} format="hour" /></span> <span class="font-normal italic mr-2 {newCondition ? 'block' : 'hidden'}">{newCondition ? condition : ''}</span> <span class="min-w-fit inline-block border-solid border-t-[1px] border-slate-300 grow translate-y-2/4"></span>
+        <div style="height:{100 / 12}%;" class="font-bold grow flex items-top">
+          <span class="w-9 mr-2 inline-block text-right"><Timestamp value={timestamp} format="hour" /></span>
+          <span class="font-normal italic mr-2 {newCondition ? 'block' : 'hidden'}">{newCondition ? condition : ''}</span>
+          <span class="min-w-fit inline-block border-solid border-b-[1px] border-slate-300 grow h-1/4"></span>
         </div>
       {/each}
     </div>
-    <div class="flex flex-col grow text-base sm:text-lg font-light text-black dark:text-white" >
+    <div class="grow text-base sm:text-lg font-light text-black dark:text-white" >
       {#each Array(12) as _, i}
         {@const temperature = hourly[2 * i].temperature}
         {@const width = (100 * (temperature - temperatureLow)) / (temperatureHigh - temperatureLow)}
 
-        <div class="grow flex items-center">
-          <span class="min-w-fit inline-block border-solid border-t-[1px] border-slate-300 translate-y-2/4" style="min-width: calc({width}% - 40px);"></span>
+        <div style="height:{100 / 12}%;" class="grow flex items-top">
+          <span class="min-w-fit inline-block border-solid border-b-[1px] border-slate-300 h-1/4" style="min-width: calc({width}% - 45px);"></span>
           <span class="ml-2"><Temperature pill value={temperature} /></span>
         </div>
       {/each}
