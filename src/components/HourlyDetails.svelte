@@ -151,7 +151,7 @@
     <div style="width: {100 / 24}%;" />
   </div>
 {:else if $configuration.layout === 'vertical'}
-  <div class="flex flex-row" style="height: 600px;">
+  <div class="flex flex-row" style="height: 525px;">
     <div class="flex flex-col w-7 overflow-hidden rounded-md text-sm sm:text-base">
       {#each aggregation as entry}
         <div class="{CLASS_TEXT_MAP[entry.conditions][0]}" style="height: {100 * entry.duration / 24}%;">
@@ -190,7 +190,7 @@
         {@const width = (100 * (temperature - temperatureLow)) / (temperatureHigh - temperatureLow)}
 
         <div style="height:{100 / 24}%;transform:translateY(-4px);" class="grow flex items-top">
-          <span class="min-w-fit inline-block border-solid border-b-[1px] border-slate-300 h-2/4" style="min-width: calc({width}% - 45px);"></span>
+          <span class="min-w-fit inline-block border-solid border-b-[1px] border-slate-300 h-2/4" style="min-width: calc({width}% - 50px);"></span>
           <span class="ml-2"><Temperature pill value={temperature} /></span>
         </div>
         <div style="height:{100 / 24}%;">&nbsp;</div>
