@@ -1,6 +1,7 @@
 <script lang="ts">
   import { ConditionsIcon } from '../providers/Provider';
   import type { HourlyWeather } from '../providers/Provider';
+  import { configuration } from '../Configuration';
 
   import Temperature from './scalars/Temperature.svelte';
   import Timestamp from './scalars/Timestamp.svelte';
@@ -27,24 +28,24 @@
   }
 
   const CLASS_TEXT_MAP = {
-    [HourlyConditions.Clear]: ['bg-[#eeeef5] dark:bg-gray-400 text-[#333] dark:text-[#111] [text-shadow:_1px_1px_0_rgb(255_255_255_/_0.6)]', 'Clear'],
+    [HourlyConditions.Clear]: ['bg-[#eeeef5] dark:bg-gray-400 text-[#333]', 'Clear'],
     [HourlyConditions.PartlyCloudy]: [
-      'bg-[#d5dae2] dark:bg-gray-500 text-[#333] dark:text-[#fff] [text-shadow:_1px_1px_0_rgb(255_255_255_/_0.6)] dark:[text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]',
+      'bg-[#d5dae2] dark:bg-gray-500 text-[#333]]',
       'Partly Cloudy',
     ],
     [HourlyConditions.MostlyCloudy]: [
-      'bg-[#b6bfcb] dark:bg-gray-600 text-[#333] dark:text-[#fff] [text-shadow:_1px_1px_0_rgb(255_255_255_/_0.6)] dark:[text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]',
+      'bg-[#b6bfcb] dark:bg-gray-600 text-[#333]]',
       'Mostly Cloudy',
     ],
-    [HourlyConditions.Overcast]: ['bg-[#878f9a] dark:bg-gray-700 text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Overcast'],
-    [HourlyConditions.Fog]: ['bg-[#878f9a] dark:bg-gray-700 text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Fog'],
-    [HourlyConditions.LightRain]: ['bg-[#80a5d6] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Light Rain'],
-    [HourlyConditions.Rain]: ['bg-[#4a80c7] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Rain'],
-    [HourlyConditions.LightSleet]: ['bg-[#96a5d9] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Light Sleet'],
-    [HourlyConditions.Sleet]: ['bg-[#6b81cb] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Sleet'],
-    [HourlyConditions.LightSnow]: ['bg-[#aba4db] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Light Snow'],
-    [HourlyConditions.Snow]: ['bg-[#8c82ce] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Snow'],
-    [HourlyConditions.Unknown]: ['bg-red-300 text-[#000] [text-shadow:_1px_1px_0_rgb(255_255_255_/_0.6)]', 'Unknown'],
+    [HourlyConditions.Overcast]: ['bg-[#878f9a] dark:bg-gray-700', 'Overcast'],
+    [HourlyConditions.Fog]: ['bg-[#878f9a] dark:bg-gray-700', 'Fog'],
+    [HourlyConditions.LightRain]: ['bg-[#80a5d6]', 'Light Rain'],
+    [HourlyConditions.Rain]: ['bg-[#4a80c7]', 'Rain'],
+    [HourlyConditions.LightSleet]: ['bg-[#96a5d9]', 'Light Sleet'],
+    [HourlyConditions.Sleet]: ['bg-[#6b81cb]', 'Sleet'],
+    [HourlyConditions.LightSnow]: ['bg-[#aba4db]', 'Light Snow'],
+    [HourlyConditions.Snow]: ['bg-[#8c82ce]', 'Snow'],
+    [HourlyConditions.Unknown]: ['bg-red-300', 'Unknown'],
   };
 
   const ICON_MAP = {
@@ -97,51 +98,103 @@
   }
 </script>
 
-<div class="flex mb-1.5 overflow-hidden rounded-md text-sm sm:text-base">
-  {#each aggregation as entry}
-    <div class="h-10 leading-9 {CLASS_TEXT_MAP[entry.conditions][0]} text-center" style="width: {(100 * entry.duration) / 24}%;">
-      {#if entry.duration > 4}
-        <div class="truncate">{CLASS_TEXT_MAP[entry.conditions][1]}</div>
-      {:else if entry.duration > 2}
-        <div class="hidden md:block truncate">{CLASS_TEXT_MAP[entry.conditions][1]}</div>
-      {/if}
-    </div>
-  {/each}
-</div>
-<div class="flex w-full mb-1">
-  {#each Array(25) as _, i}
-    <div class="{i % 2 === 0 ? 'h-[8px]' : 'h-[5px]'} border-l border-gray-400" style="width: {i < 24 ? 100 / 24 : 0}%;" />
-  {/each}
-</div>
-<div class="flex w-full text-xs sm:text-sm">
-  <div style="width: {100 / 24}%;">
-    <div class="hidden md:block">
-      <Timestamp value={hourly[0].timestamp} format="hour" />
-    </div>
+{#if $configuration.layout === 'horizontal'}
+  <div class="flex mb-1.5 overflow-hidden rounded-md text-sm sm:text-base">
+    {#each aggregation as entry}
+      <div class="h-10 leading-9 {CLASS_TEXT_MAP[entry.conditions][0]} text-center" style="width: {(100 * entry.duration) / 24}%;">
+        {#if entry.duration > 4}
+          <div class="truncate">{CLASS_TEXT_MAP[entry.conditions][1]}</div>
+        {:else if entry.duration > 2}
+          <div class="hidden md:block truncate">{CLASS_TEXT_MAP[entry.conditions][1]}</div>
+        {/if}
+      </div>
+    {/each}
   </div>
-  {#each Array(11) as _, i}
-    {@const timestamp = hourly[2 * (i + 1)].timestamp}
-    <div class="text-center" style="width: {100 / 12}%;">
-      <div class="{i === 0 || i === 2 || i === 4 || i === 6 || i === 8 || i === 10 ? 'block' : 'hidden'} md:block">
-        <Timestamp value={timestamp} format="hour" />
+  <div class="flex w-full mb-1">
+    {#each Array(25) as _, i}
+      <div class="{i % 2 === 0 ? 'h-[8px]' : 'h-[5px]'} border-l border-gray-400" style="width: {i < 24 ? 100 / 24 : 0}%;" />
+    {/each}
+  </div>
+  <div class="flex w-full text-xs sm:text-sm">
+    <div style="width: {100 / 24}%;">
+      <div class="hidden md:block">
+        <Timestamp value={hourly[0].timestamp} format="hour" />
       </div>
     </div>
-  {/each}
-  <div style="width: {100 / 24}%;" />
-</div>
-<div class="flex w-full mb-2 text-base sm:text-lg font-light text-black dark:text-white">
-  <div style="width: {100 / 24}%; opacity: {temperatureOpacity(hourly[0].temperature)};">
-    <div class="hidden md:block">
-      <Temperature value={hourly[0].temperature} />
-    </div>
+    {#each Array(11) as _, i}
+      {@const timestamp = hourly[2 * (i + 1)].timestamp}
+      <div class="text-center" style="width: {100 / 12}%;">
+        <div class="{i === 0 || i === 2 || i === 4 || i === 6 || i === 8 || i === 10 ? 'block' : 'hidden'} md:block">
+          <Timestamp value={timestamp} format="hour" />
+        </div>
+      </div>
+    {/each}
+    <div style="width: {100 / 24}%;" />
   </div>
-  {#each Array(11) as _, i}
-    {@const temperature = hourly[2 * (i + 1)].temperature}
-    <div class="text-center" style="width: {100 / 12}%; opacity: {temperatureOpacity(temperature)};">
-      <div class="{i === 0 || i === 2 || i === 4 || i === 6 || i === 8 || i === 10 ? 'block' : 'hidden'} md:block">
-        &nbsp;<Temperature value={temperature} />
+  <div class="flex w-full mb-2 text-base sm:text-lg font-light text-black dark:text-white">
+    <div style="width: {100 / 24}%; opacity: {temperatureOpacity(hourly[0].temperature)};">
+      <div class="hidden md:block">
+        <Temperature value={hourly[0].temperature} />
       </div>
     </div>
-  {/each}
-  <div style="width: {100 / 24}%;" />
-</div>
+    {#each Array(11) as _, i}
+      {@const temperature = hourly[2 * (i + 1)].temperature}
+      <div class="text-center" style="width: {100 / 12}%; opacity: {temperatureOpacity(temperature)};">
+        <div class="{i === 0 || i === 2 || i === 4 || i === 6 || i === 8 || i === 10 ? 'block' : 'hidden'} md:block">
+          &nbsp;<Temperature value={temperature} />
+        </div>
+      </div>
+    {/each}
+    <div style="width: {100 / 24}%;" />
+  </div>
+{:else if $configuration.layout === 'vertical'}
+  <div class="flex flex-row h-96">
+    <div class="flex flex-col shrink mb-1.5 w-6 overflow-hidden rounded-md text-sm sm:text-base">
+      {#each aggregation as entry}
+        <div class="leading-9 {CLASS_TEXT_MAP[entry.conditions][0]}" style="height: {(100 * entry.duration) / 24}%;">
+          <!-- <div class="md:block text-sm">{CLASS_TEXT_MAP[entry.conditions][1]}</div> -->
+        </div>
+      {/each}
+    </div>
+    <!-- <div class="flex flex-col w-full mb-1">
+      {#each Array(25) as _, i}
+        <div class="{i % 2 === 0 ? 'h-[8px]' : 'h-[5px]'} border-l border-gray-400" style="width: {i < 24 ? 100 / 24 : 0}%;" />
+      {/each}
+    </div> -->
+    <div class="flex flex-col shrink text-xs sm:text-sm ml-3">
+      <div style="height: {100 / 12}%;">
+        <div class="hidden md:block">
+          <span class="font-bold w-9 mr-2 inline-block text-right">Now</span> <span class="font-normal italic">{hourly[0].conditions}</span>
+          <!-- <Timestamp value={hourly[0].timestamp} format="hour" /> -->
+        </div>
+      </div>
+      {#each Array(11) as _, i}
+        {@const timestamp = hourly[2 * (i + 1)].timestamp}
+        {@const condition = hourly[2 * (i + 1)].conditions}
+        {@const previousCondition = hourly[2 * i].conditions}
+        <div class="font-bold" style="height: {100 / 12}%;">
+          <div class="{i === 0 || i === 2 || i === 4 || i === 6 || i === 8 || i === 10 ? 'block' : 'hidden'} md:block">
+            <span class="w-9 mr-2 inline-block text-right"><Timestamp value={timestamp} format="hour" /></span> <span class="font-normal italic">{previousCondition !== condition ? condition : ''}</span>
+          </div>
+        </div>
+      {/each}
+      <div style="height: {100 / 24}%;" />
+    </div>
+    <div class="flex flex-col grow mb-2 text-base sm:text-lg font-light text-black dark:text-white">
+      <!-- <div style="width: {100 / 24}%; opacity: {temperatureOpacity(hourly[0].temperature)};">
+        <div class="hidden md:block">
+          <Temperature value={hourly[0].temperature} />
+        </div>
+      </div> -->
+      {#each Array(12) as _, i}
+        {@const temperature = hourly[2 * i].temperature}
+        <div class="text-center" style="height: {100 / 12}%;">
+          <div class="{i === 0 || i === 2 || i === 4 || i === 6 || i === 8 || i === 10 ? 'block' : 'hidden'} md:block">
+            &nbsp;<Temperature value={temperature} />
+          </div>
+        </div>
+      {/each}
+      <div style="height: {100 / 24}%;" />
+    </div>
+  </div>
+{/if}
