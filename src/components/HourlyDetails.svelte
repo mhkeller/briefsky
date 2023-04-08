@@ -166,7 +166,7 @@
         {@const previousCondition = hourly[2 * i].conditions}
         {@const newCondition = previousCondition !== condition}
         <div class="font-bold grow flex items-center">
-          <span class="w-9 mr-2 inline-block text-right"><Timestamp value={timestamp} format="hour" /></span> <span class="font-normal italic {newCondition ? 'block' : 'hidden'} {newCondition ? 'mr-2': ''}">{newCondition ? condition : ''}</span> <span class="min-w-fit inline-block border-solid border-t-[1px] border-slate-300 grow translate-y-2/4"></span>
+          <span class="w-9 mr-2 inline-block text-right"><Timestamp value={timestamp} format="hour" /></span> <span class="font-normal italic mr-2 {newCondition ? 'block' : 'hidden'}">{newCondition ? condition : ''}</span> <span class="min-w-fit inline-block border-solid border-t-[1px] border-slate-300 grow translate-y-2/4"></span>
         </div>
       {/each}
     </div>
