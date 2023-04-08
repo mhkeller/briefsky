@@ -11,9 +11,6 @@
   export let hourly: HourlyWeather[] = [];
   export let today: boolean = false;
 
-  $: console.log(hourly.map(d => [d.timestamp.getHours(), d.conditions]).join('\n'));
-  $: console.log(hourly.length);
-
   /* Constants */
 
   enum HourlyConditions {
@@ -97,7 +94,6 @@
         aggregation[aggregation.length - 1].duration += 1;
       }
     }
-    console.log(aggregation)
 
     /* Compute low and high temperatures */
     temperatureLow = Math.min(...hourly.map((h) => h.temperature));
