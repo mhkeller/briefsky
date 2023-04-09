@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "postbuild": "mv dist docs",
+    "postbuild": "rm -rf docs && mv dist docs",
     "preview": "vite preview",
     "format": "prettier --write --plugin-search-dir . .",
     "lint": "eslint .",
