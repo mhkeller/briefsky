@@ -151,7 +151,7 @@
     <div style="width: {100 / 24}%;" />
   </div>
 {:else if $configuration.layout === 'vertical'}
-  <div class="flex flex-row" style="height: 525px;">
+  <div class="flex flex-row mx-auto">
     <div class="flex flex-col w-7 overflow-hidden rounded-md text-sm sm:text-base">
       {#each aggregation as entry}
         <div class="{CLASS_TEXT_MAP[entry.conditions][0]}" style="height: {100 * entry.duration / 24}%;">
@@ -191,7 +191,7 @@
 
         <div style="height:{100 / 24}%;transform:translateY(-4px);" class="grow flex items-top">
           <span class="min-w-fit inline-block border-solid border-b-[1px] border-slate-300 h-2/4" style="min-width: calc({width}% - 50px);"></span>
-          <span class="ml-2"><Temperature pill value={temperature} /></span>
+          <span class="ml-2" style="transform:translateY(-1px);"><Temperature pill value={temperature} /></span>
         </div>
         <div style="height:{100 / 24}%;">&nbsp;</div>
       {/each}
