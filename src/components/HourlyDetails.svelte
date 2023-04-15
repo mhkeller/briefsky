@@ -29,24 +29,24 @@
   }
 
   const CLASS_TEXT_MAP = {
-    [HourlyConditions.Clear]: ['bg-[#eeeef5] dark:bg-gray-400 text-[#333]', 'Clear'],
+    [HourlyConditions.Clear]: ['bg-[#eeeef5] dark:bg-gray-400 text-[#333] dark:text-[#111] [text-shadow:_1px_1px_0_rgb(255_255_255_/_0.6)]', 'Clear'],
     [HourlyConditions.PartlyCloudy]: [
-      'bg-[#d5dae2] dark:bg-gray-500 text-[#333]]',
+      'bg-[#d5dae2] dark:bg-gray-500 text-[#333] dark:text-[#fff] [text-shadow:_1px_1px_0_rgb(255_255_255_/_0.6)] dark:[text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]',
       'Partly Cloudy',
     ],
     [HourlyConditions.MostlyCloudy]: [
-      'bg-[#b6bfcb] dark:bg-gray-600 text-[#333]]',
+      'bg-[#b6bfcb] dark:bg-gray-600 text-[#333] dark:text-[#fff] [text-shadow:_1px_1px_0_rgb(255_255_255_/_0.6)] dark:[text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]',
       'Mostly Cloudy',
     ],
-    [HourlyConditions.Overcast]: ['bg-[#878f9a] dark:bg-gray-700', 'Overcast'],
-    [HourlyConditions.Fog]: ['bg-[#878f9a] dark:bg-gray-700', 'Fog'],
-    [HourlyConditions.LightRain]: ['bg-[#80a5d6]', 'Light Rain'],
-    [HourlyConditions.Rain]: ['bg-[#4a80c7]', 'Rain'],
-    [HourlyConditions.LightSleet]: ['bg-[#96a5d9]', 'Light Sleet'],
-    [HourlyConditions.Sleet]: ['bg-[#6b81cb]', 'Sleet'],
-    [HourlyConditions.LightSnow]: ['bg-[#aba4db]', 'Light Snow'],
-    [HourlyConditions.Snow]: ['bg-[#8c82ce]', 'Snow'],
-    [HourlyConditions.Unknown]: ['bg-red-300', 'Unknown'],
+    [HourlyConditions.Overcast]: ['bg-[#878f9a] dark:bg-gray-700 text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Overcast'],
+    [HourlyConditions.Fog]: ['bg-[#878f9a] dark:bg-gray-700 text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Fog'],
+    [HourlyConditions.LightRain]: ['bg-[#80a5d6] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Light Rain'],
+    [HourlyConditions.Rain]: ['bg-[#4a80c7] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Rain'],
+    [HourlyConditions.LightSleet]: ['bg-[#96a5d9] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Light Sleet'],
+    [HourlyConditions.Sleet]: ['bg-[#6b81cb] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Sleet'],
+    [HourlyConditions.LightSnow]: ['bg-[#aba4db] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Light Snow'],
+    [HourlyConditions.Snow]: ['bg-[#8c82ce] text-[#fff] [text-shadow:_1px_1px_0_rgb(0_0_0_/_0.6)]', 'Snow'],
+    [HourlyConditions.Unknown]: ['bg-red-300 text-[#000] [text-shadow:_1px_1px_0_rgb(255_255_255_/_0.6)]', 'Unknown'],
   };
 
   const ICON_MAP = {
