@@ -110,7 +110,8 @@
 
   <div class="container mx-auto">
     {#if weather}
-      <CurrentDetails current={weather.current} />
+      {@const { sunset_timestamp, sunrise_timestamp } = weather.daily[0]}
+      <CurrentDetails current={weather.current} suntimes={{ sunset_timestamp, sunrise_timestamp }} />
       <div class="mx-6 mb-6">
         <HourlyDetails hourly={weather.current.hourly} today />
       </div>

@@ -1,5 +1,7 @@
 <script lang="ts">
-  import type { CurrentWeather } from '../providers/Provider';
+  import Icon from '@iconify/svelte';
+
+  import type { CurrentWeather, SunTimes } from '../providers/Provider';
 
   import Conditions from './scalars/Conditions.svelte';
   import ConditionsIcon from './scalars/ConditionsIcon.svelte';
@@ -9,8 +11,10 @@
   import UVIndex from './scalars/UVIndex.svelte';
   import Distance from './scalars/Distance.svelte';
   import Pressure from './scalars/Pressure.svelte';
+  import Timestamp from './scalars/Timestamp.svelte';
 
   export let current: CurrentWeather;
+  export let suntimes: SunTimes;
 </script>
 
 <div class="grid grid-rows-2 grid-flow-col justify-center items-center mt-2 mb-4">
@@ -34,4 +38,13 @@
     <div><span class="font-semibold">Visibility: </span><Distance value={current.visibility} /></div>
   {/if}
   <div><span class="font-semibold">Pressure: </span><Pressure value={current.pressure} /></div>
+  <div>
+    <span class="inline-block" style="transform:translateY(-2px)"><Icon icon="mingcute:sunrise-line" class="inline text-2xl sm:text-3xl align-bottom" /></span>
+    <span class="font-semibold">Sunrise: </span><Timestamp format="short" value={suntimes.sunrise_timestamp} />
+  </div>
+  <div>
+    <span class="inline-block" style="transform:translateY(-2px)"><Icon icon="mingcute:sunset-fill" class="inline text-2xl sm:text-3xl align-bottom" /></span>
+    <span class="font-semibold">Sunset: </span><Timestamp format="short" value={suntimes.sunset_timestamp} />
+  </div>
+
 </div>
