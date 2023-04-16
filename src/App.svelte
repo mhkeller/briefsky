@@ -123,7 +123,7 @@
       >
         {#each weather.daily as daily, i}
           {#if ($configuration.layout === 'vertical' && i) > 0 || $configuration.layout === 'horizontal'}
-            <AccordionItem class="!p-2 md:!p-4">
+            <AccordionItem class="!px-2 md:!px-4 py-4 md:px-8">
               <span slot="header" class="w-full">
                 <DailySummary
                   current={weather.current}

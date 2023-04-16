@@ -35,11 +35,11 @@
 
 <div class="grid grid-cols-2 md:grid-cols-none md:grid-flow-col md:place-items-center md:justify-center gap-2 md:gap-8 md:mx-0 mt-3 mb-6">
   <div>
-    <span class="inline-block" style="transform:translateY(-2px)"><Icon icon="mingcute:sunrise-line" class="inline text-2xl sm:text-3xl align-bottom" /></span>
+    <span class="inline-block" style="transform:translate(-2px,-2px)"><Icon icon="mingcute:sunrise-line" class="inline text-2xl sm:text-3xl align-bottom" /></span>
     <span class="font-semibold">Sunrise: </span><Timestamp format="short" value={daily.sunrise_timestamp} />
   </div>
   <div>
-    <span class="inline-block" style="transform:translateY(-2px)"><Icon icon="mingcute:sunset-fill" class="inline text-2xl sm:text-3xl align-bottom" /></span>
+    <span class="inline-block" style="transform:translate(-2px,-2px)"><Icon icon="mingcute:sunset-fill" class="inline text-2xl sm:text-3xl align-bottom" /></span>
     <span class="font-semibold">Sunset: </span><Timestamp format="short" value={daily.sunset_timestamp} />
   </div>
 </div>
